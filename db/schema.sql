@@ -1,0 +1,2 @@
+DROP DATABASE IF EXISTS petfolio_db;
+CREATE DATABASE petfolio_db;
