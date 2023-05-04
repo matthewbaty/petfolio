@@ -1,0 +1,20 @@
+* {
+
+}
+
+h2 {
+    font-family: "Chewy";
+}
+.background {
+   
+    background: #B1AFFF;
+}
+
+#icon {
+    height: 60px;
+    width: 60px;
+}
+
+.form-label {
+    color: gray;
+}
