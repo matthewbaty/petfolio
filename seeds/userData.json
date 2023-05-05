@@ -1,0 +1,21 @@
+[
+    {
+        "firstName": "Matthew",
+        "lastName": "Baty",
+        "email": "mattbaty@outlook.com",
+        "password": "password"
+    },
+    {
+        "firstName": "Jim",
+        "lastName": "Brown",
+        "email": "jimbrown@outlook.com",
+        "password": "password"
+    },
+    {
+        "firstName": "Tom",
+        "lastName": "Smith",
+        "email": "tomsmith@outlook.com",
+        "password": "password"
+    }
+]
+

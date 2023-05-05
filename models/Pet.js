@@ -6,7 +6,8 @@ class Pet extends Model { };
 Pet.init(
   {
     pet_id: {
-      type: DataTypes.string,
+      type: DataTypes.INTEGER,
+      allowNull: false,
       primaryKey: true,
       autoIncrement: true,
     },
@@ -31,10 +32,10 @@ Pet.init(
     user_id: {
       type: DataTypes.INTEGER,
       references: {
-        model: User,
-        key: 'id'
-      }
-    }
+        model: 'user',
+        key: 'id',
+      },
+    },
   },
   {
     sequelize,
