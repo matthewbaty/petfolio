@@ -6,7 +6,8 @@ class Pet extends Model {};
 Pet.init(
   {
     pet_id: {
-      type: DataTypes.string,
+      type: DataTypes.INTEGER,
+      allowNull: false,
       primaryKey: true,
       autoIncrement: true,
     },
@@ -27,6 +28,13 @@ Pet.init(
     },
     reminder: {
       type: DataTypes.STRING,
+    },
+    user_id: {
+      type: DataTypes.INTEGER,
+      references: {
+        model: 'user',
+        key: 'id',
+      },
     },
   },
   {
