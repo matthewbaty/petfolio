@@ -1,7 +1,7 @@
 const { Model, DataTypes } = require('sequelize');
 const sequelize = require('../config/connection');
 
-class Pet extends Model {};
+class Pet extends Model { };
 
 Pet.init(
   {
@@ -28,6 +28,13 @@ Pet.init(
     reminder: {
       type: DataTypes.STRING,
     },
+    user_id: {
+      type: DataTypes.INTEGER,
+      references: {
+        model: User,
+        key: 'id'
+      }
+    }
   },
   {
     sequelize,
