@@ -11,8 +11,8 @@ router.get('/', async (req, res) => {
                 {
                     model: User,
                     attributes: [
-                        'firstName',
-                        'lastName'
+                        'first_name',
+                        'last_name'
                     ]
                 },
             ],
@@ -34,10 +34,14 @@ router.get('/pet/:id', async (req, res) => {
         const petData = await Pet.findByPk(req.params.id, {
             include: [
                 {
-                    model: User,
+                    model: Pet,
                     attributes: [
-                        'firstName',
-                        'lastName'
+                        'pet_id',
+                        'name',
+                        'species',
+                        'breed',
+                        'birthdate',
+                        'weight'
                     ],
                 },
             ],
@@ -96,5 +100,9 @@ router.get('/signature', (req, res) => {
     var authentcationParameters = imagekit.getAuthenticationParameters();
     res.send(authentcationParameters);
 })
+//test
+router.get('/signup', (req,res) => {
+    res.render('signup')
+});
 
 module.exports = router;
