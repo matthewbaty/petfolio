@@ -2,29 +2,50 @@ const router = require('express').Router();
 const { User } = require('../../models');
 const bcrypt = require('bcrypt');
 
+// CREATE new user
+router.post('/', async (req, res) => {
+    try {
+      const dbUserData = await User.create({
+        firstName: req.body.firstName,
+        lastName: req.body.lastName,
+        email: req.body.email,
+        password: req.body.password,
+      });
+  
+      req.session.save(() => {
+        req.session.loggedIn = true;
+  
+        res.status(200).json(dbUserData);
+      });
+    } catch (err) {
+      console.log(err);
+      res.status(500).json(err);
+    }
+  });
+
 //POST /api/users/login
 router.post('/login', async (req, res) => {
     console.log('req.body:');
     console.log(req.body);
     try {
         //lookup a user based on the email we send from the login page form
-        const userData = await User.findOne({
+        const dbUserData = await User.findOne({
             where: {
                 email: req.body.email
             }
         });
         //if that user exists, check their password (otherwise say "user not found")
-        if (userData) {
+        if (dbUserData) {
             //check password
-            const validPassword = await bcrypt.compare(req.body.password, userData.password);
+            const validPassword = await bcrypt.compare(req.body.password, dbUserData.password);
             if (validPassword) {
                 req.session.save(() => {
-                    req.session.user_id = userData.id;
+                    req.session.user_id = dbUserData.id;
                     req.session.logged_in = true;
 
                     res.json({
                         success: true,
-                        user: userData,
+                        user: dbUserData,
                         message: 'You are now logged in!'
                     });
                 });
@@ -40,8 +61,8 @@ router.post('/login', async (req, res) => {
                 message: 'User not found :('
             });
         }
-        console.log(userData);
-
+        console.log(dbUserData);
+        
     } catch (e) {
         res.status(500).json(e);
     }

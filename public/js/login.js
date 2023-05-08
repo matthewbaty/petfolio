@@ -5,7 +5,7 @@ async function login_handler(event) {
     const password = $('#password_form').val().trim();
 
     if (email && password) {
-        const response = await fetch('/api/login', {
+        const response = await fetch('/api/users/login', {
             method: 'POST',
             body: JSON.stringify({ email, password }),
             headers: { 'Content-Type': 'application/json' }
@@ -14,7 +14,7 @@ async function login_handler(event) {
         console.log(response);
 
         if (response.ok) {
-            document.location.href = '/';
+            document.location.href = '/landing';
         } else {
             $('#invalid_cred').show();
         }
