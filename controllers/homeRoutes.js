@@ -1,6 +1,8 @@
+const ImageKit = require("imagekit");
 const router = require('express').Router();
 const { Pet, User } = require('../models');
 const withAuth = require('../utils/auth');
+require('dotenv').config();
 
 router.get('/', async (req, res) => {
     try {
@@ -43,7 +45,9 @@ router.get('/pet/:id', async (req, res) => {
 
         const pet = petData.get({ plain: true });
 
-        res.render('landing', {
+        console.log(pet);
+
+        res.render('pet', {
             ...pet,
             logged_in: req.session.logged_in
         });
@@ -53,33 +57,44 @@ router.get('/pet/:id', async (req, res) => {
 });
 
 // locked with auth to prevent viewing a users profile without being logged in
-router.get('/profile', withAuth, async (req, res) => {
+router.get('/pets', withAuth, async (req, res) => {
     try {
-      // Find the logged in user based on the session ID
-      const userData = await User.findByPk(req.session.user_id, {
-        attributes: { exclude: ['password'] },
-        include: [{ model: Pet }],
-      });
-  
-      const user = userData.get({ plain: true });
-  
-      res.render('profile', {
-        ...user,
-        logged_in: true
-      });
-    } catch (err) {
-      res.status(500).json(err);
-    }
-  });
+        // Find the logged in user based on the session ID
+        const userData = await User.findByPk(req.session.user_id, {
+            attributes: { exclude: ['password'] },
+            include: [{ model: Pet }],
+        });
 
-  router.get('/login', (req, res) => {
+        const user = userData.get({ plain: true });
+
+        res.render('pets', {
+            ...user,
+            logged_in: true
+        });
+    } catch (err) {
+        res.status(500).json(err);
+    }
+});
+
+router.get('/login', (req, res) => {
     // if the user is already logged in, redirect the request to another route
     if (req.session.logged_in) {
-      res.redirect('/profile');
-      return;
+        res.redirect('/profile');
+        return;
     }
-  
+
     res.render('login');
-  });
+});
+
+router.get('/signature', (req, res) => {
+
+    const imagekit = new ImageKit({
+        publicKey: process.env.IMAGEKIT_PUBLIC_KEY,
+        privateKey: process.env.IMAGEKIT_PRIVATE_KEY,
+        urlEndpoint: process.env.IMAGEKIT_URL_ENDPOINT
+    });
+    var authentcationParameters = imagekit.getAuthenticationParameters();
+    res.send(authentcationParameters);
+})
 
 module.exports = router;
