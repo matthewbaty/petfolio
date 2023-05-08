@@ -11,10 +11,8 @@ async function login_handler(event) {
             headers: { 'Content-Type': 'application/json' }
         });
 
-        console.log(response);
-
         if (response.ok) {
-            document.location.href = '/landing';
+            document.location.href = '/';
         } else {
             $('#invalid_cred').show();
         }
