@@ -12,7 +12,7 @@ async function login_handler(event) {
         });
 
         if (response.ok) {
-            document.location.href = '/landing';
+            document.location.href = '/';
         } else {
             $('#invalid_cred').show();
         }

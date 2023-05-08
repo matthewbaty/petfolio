@@ -1,10 +1,5 @@
-
 h2 {
     font-family: "Chewy";
-}
-.background {
-   
-    background: #B1AFFF;
 }
 
 #icon {
@@ -18,8 +13,31 @@ h2 {
 
 #login_btn {
     color: white;
+    background-color: black;
 }
 
-#my-pet, #appts {
+#my-pet-btn, #docs-btn, #logout_btn  {
     background-color: #B1AFFF;
+    color: white;
 }
+
+#home {
+    background-color: #B1AFFF;
+    float: left;
+}
+
+#my-pet {
+    background-color: white;
+    margin-right: 70px;
+}
+
+#name_form, #species_form, #breed_form, #birthdate_form, #weight_form, #edit-btn {
+    font-size: 20px;
+    font-family: "Poppins";
+
+}
+
+#edit-btn {
+    margin-left: 30%;
+}
+
