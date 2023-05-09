@@ -1,5 +1,11 @@
+
+<button id="home" onclick="window.location.href='/';">Home</button>
 <div class="mb-3">
+    <button class ="btn btn-dark btn-sm px-2" onclick="window.location.href='/create_pet';">Add Pet</button>
+    <div>
     {{#each pets as |pet| }}
     <button class="mx-3" onclick="window.location.href='/pet/{{pet.pet_id}}';">{{pet.name}}</button>
     {{/each}}
+    </div>
 </div>
+

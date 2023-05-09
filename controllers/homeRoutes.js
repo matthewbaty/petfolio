@@ -42,14 +42,14 @@ router.get('/pet/:id', withAuth, async (req, res) => {
 
         const pet = petData.get({ plain: true });
 
-        let img_path = '';
-        if (pet.files.length > 1) {
-            img_path = pet.files[0].path;
-        }
+        pet_file_paths = {};
+        pet.files.forEach((file) => {
+            pet_file_paths[`${file.type}_path`] = file.path;
+        });
 
         res.render('pet', {
             ...pet,
-            img_path: img_path,
+            ...pet_file_paths,
             logged_in: req.session.logged_in
         });
     } catch (err) {
@@ -99,8 +99,8 @@ router.get('/signature', (req, res) => {
     res.send(authentcationParameters);
 });
 
-router.get('/documents', withAuth, (req,res) => {
-    res.render('documents')
+router.get('/create_pet', withAuth, (req,res) => {
+    res.render('create_pet')
 });
 
 //test
