@@ -1,8 +1,10 @@
+const ImageKit = require("imagekit");
 const router = require('express').Router();
-const { Pet, User } = require('../models');
+const { Pet, User, File } = require('../models');
 const withAuth = require('../utils/auth');
+require('dotenv').config();
 
-router.get('/', async (req, res) => {
+router.get('/', withAuth, async (req, res) => {
     try {
         const petData = await Pet.findAll({
             include: [
@@ -27,37 +29,36 @@ router.get('/', async (req, res) => {
     }
 });
 
-router.get('/pet/:id', async (req, res) => {
+router.get('/pet/:id', withAuth, async (req, res) => {
     try {
         const petData = await Pet.findByPk(req.params.id, {
             include: [
                 {
-                    model: Pet,
-                    attributes: [
-                        'pet_id',
-                        'name',
-                        'species',
-                        'breed',
-                        'birthdate',
-                        'weight'
-                    ],
+                    model: File
                 },
             ],
         });
 
         const pet = petData.get({ plain: true });
 
-        res.render('landing', {
+        let img_path = '';
+        if (pet.files.length > 1) {
+            img_path = pet.files[0].path;
+        }
+
+        res.render('pet', {
             ...pet,
+            img_path: img_path,
             logged_in: req.session.logged_in
         });
     } catch (err) {
+        console.log(err);
         res.status(500).json(err);
     }
 });
 
 // locked with auth to prevent viewing a users profile without being logged in
-router.get('/landing', withAuth, async (req, res) => {
+router.get('/pets', withAuth, async (req, res) => {
     try {
         // Find the logged in user based on the session ID
         const userData = await User.findByPk(req.session.user_id, {
@@ -67,7 +68,7 @@ router.get('/landing', withAuth, async (req, res) => {
 
         const user = userData.get({ plain: true });
 
-        res.render('landing', {
+        res.render('pets', {
             ...user,
             logged_in: true
         });
@@ -84,6 +85,21 @@ router.get('/login', (req, res) => {
     }
 
     res.render('login');
+});
+
+// Used to authenticate login for image upload
+router.get('/signature', (req, res) => {
+    const imagekit = new ImageKit({
+        publicKey: process.env.IMAGEKIT_PUBLIC_KEY,
+        privateKey: process.env.IMAGEKIT_PRIVATE_KEY,
+        urlEndpoint: process.env.IMAGEKIT_URL_ENDPOINT
+    });
+    var authentcationParameters = imagekit.getAuthenticationParameters();
+    res.send(authentcationParameters);
+});
+
+router.get('/documents', withAuth, (req,res) => {
+    res.render('documents')
 });
 
 //test

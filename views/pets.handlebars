@@ -1,0 +1,5 @@
+<div class="mb-3">
+    {{#each pets as |pet| }}
+    <button class="mx-3" onclick="window.location.href='/pet/{{pet.pet_id}}';">{{pet.name}}</button>
+    {{/each}}
+</div>
