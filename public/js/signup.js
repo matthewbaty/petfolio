@@ -16,7 +16,7 @@ async function signup_handler(event) {
         })
 
         if (response.ok) {
-            document.location.href = '/login';
+            document.location.href = '/';
         } else {
             alert(`Failed to signup`);
         }

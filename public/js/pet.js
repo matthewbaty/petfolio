@@ -17,11 +17,11 @@ async function save_handler (event) {
             $("#pet-img").attr('src', result.url);
             
             // Delete has to be first
-            await fetch('/api/files/file_by_owner', {
-                method: 'DELETE',
-                body: JSON.stringify({ owner_id: pet_id, file_type: 'pet_profile' }),
-                headers: { 'Content-Type': 'application/json' }
-            });
+            // await fetch('/api/files/file_by_owner', {
+            //     method: 'DELETE',
+            //     body: JSON.stringify({ owner_id: pet_id, file_type: 'pet_profile' }),
+            //     headers: { 'Content-Type': 'application/json' }
+            // });
 
             await fetch('/api/files', {
                 method: 'PUT',
