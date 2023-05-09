@@ -1,26 +1,38 @@
 <div class="mb-1">
     <button id="home" onclick="window.location.href='/';">Home</button>
-    <h2 id="my-pet">MY PET</h2>
+    <h2 id="my-pet ml-5">MY PET</h2>
     <div class="card" style="width: 18rem; display: inline-block;">
-        <img src="{{img_path}}" class="card-img-top mb-2" alt="pet-img" id="pet-img">
+        <img src="{{pet_profile_path}}" class="card-img-top mb-2" alt="pet-img" id="pet-img">
         <section id="static-section">
-            <ul class="list-group mx-2">
+            <ul class="list-group mx-2" style="list-style:none;">
                 <li>
-                    <h3 type="name" id="name_form">{{name}}</h1>
+                    <h3 type="name" id="name_header">Name: {{name}}</h1>
                 </li>
                 <li>
-                    <h3 type="species" id="species_form">{{species}}</h1>
+                    <h3 type="species" id="species_header">Species: {{species}}</h1>
                 </li>
                 <li>
-                    <h3 type="breed" id="breed_form">{{breed}}</h1>
+                    <h3 type="breed" id="breed_header">Breed: {{breed}}</h1>
                 </li>
                 <li>
-                    <h3 type="birthdate" id="birthdate_form">{{format_date birthdate}}</h1>
+                    <h3 type="birthdate" id="birthdate_header">Birthdate: {{format_date birthdate}}</h1>
                 </li>
                 <li>
-                    <h3 type="weight" id="weight_form">{{weight}}</h1>
+                    <h3 type="weight" id="weight_header">Weight: {{weight}}</h1>
                 </li>
+                {{#if pet_vac_records_path}}
+                <li>
+                    <a href="{{pet_vac_records_path}}" target="_blank">Vaccination Record</a>
+                </li>
+                {{/if}}
+                {{#if pet_service_records_path}}
+                <li>
+                    <a href="{{pet_service_records_path}}" target="_blank">ESA/Service Records</a>
+                </li>
+                {{/if}}
+                
             </ul>
+
 
             <div class="card-body">
                 <button class="btn btn-dark btn-sm px-2" id="edit-btn">Edit Info</button>
@@ -28,27 +40,38 @@
         </section>
 
         <section id="edit-section" style="display:none">
-            <ul class="list-group mx-2">
+            <ul class="list-group mx-2" style="list-style:none;">
 
                 <li><input type="name" id="name_form" class="form-control form-control-lg" placeholder="Name" /> </li>
                 <li><input type="species" id="species_form" class="form-control form-control-lg"
                         placeholder="Species" /> </li>
                 <li><input type="breed" id="breed_form" class="form-control form-control-lg" placeholder="Breed" />
                 </li>
-                <li><input type="birthdate" id="birthdate_form" class="form-control form-control-lg"
+                <li><input type="date" id="birthdate_form" class="form-control form-control-lg"
                         placeholder="Birthdate" /> </li>
-                <li><input type="weight" id="weight_form" class="form-control form-control-lg" placeholder="Weight" />
-                </li>
+                <li><input type="weight" id="weight_form" class="form-control form-control-lg" placeholder="Weight"/></li>
             </ul>
 
             <form>
                 <div class="form-group mt-2 mx-2">
-                    <input type="file" class="form-control-file" id="img-upload-input">
+                    Pet Photo:<input type="file" class="form-control-file" id="profile-img-input">
                 </div>
             </form>
 
+            <form>
+                <div class="form-group mt-2 mx-2">
+                    Vaccination Records:<input type="file" class="form-control-file" id="vac-record-input">
+                </div>
+            </form>
+            <form>
+                <div class="form-group mt-2 mx-2">
+                    ESA/Service Records:<input type="file" class="form-control-file" id="service-record-input">
+                </div>
+            </form>
+
+
             <div class="card-body">
-                <button class="btn btn-dark btn-sm px-2" id="save-btn">Save Info</button>
+                <button class="btn btn-dark btn-sm px-2" id="update-save-btn">Save Info</button>
             </div>
         </section>
     </div>

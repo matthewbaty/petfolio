@@ -1,0 +1,28 @@
+<div class="mb-1">
+    <button id="home" onclick="window.location.href='/';">Home</button>
+    <div class="card" style="width: 18rem; display: inline-block;">
+        <ul class="list-group mx-2">
+            <li><input type="name" id="name_form" class="form-control form-control-lg" placeholder="Name" /> </li>
+            <li><input type="species" id="species_form" class="form-control form-control-lg" placeholder="Species" />
+            </li>
+            <li><input type="breed" id="breed_form" class="form-control form-control-lg" placeholder="Breed" />
+            </li>
+            <li><input type="date" id="birthdate_form" class="form-control form-control-lg"
+                    placeholder="Birthdate" /> </li>
+            <li><input type="weight" id="weight_form" class="form-control form-control-lg" placeholder="Weight" />
+            </li>
+        </ul>
+
+        <form>
+            <div class="form-group mt-2 mx-2">
+                <input type="file" class="form-control-file" id="img-upload-input">
+            </div>
+        </form>
+
+        <div class="card-body">
+            <button class="btn btn-dark btn-sm px-2" id="create-save-btn">Save Info</button>
+        </div>
+    </div>
+</div>
+
+<script type="module" src="/js/pet.js"></script>
