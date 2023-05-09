@@ -13,6 +13,14 @@ async function save_handler(event) {
     // This shouldnt be here
     // Should dynamically do it based on values set
     if (name & species & breed & birthdate & weight) {
+            $("#pet-img").attr('src', result.url);
+            
+            // Delete has to be first
+            // await fetch('/api/files/file_by_owner', {
+            //     method: 'DELETE',
+            //     body: JSON.stringify({ owner_id: pet_id, file_type: 'pet_profile' }),
+            //     headers: { 'Content-Type': 'application/json' }
+            // });
 
         const file = await $('#img-upload-input').prop('files')[0];
         if (file) {

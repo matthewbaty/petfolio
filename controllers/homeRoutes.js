@@ -4,6 +4,7 @@ const { Pet, User, File } = require('../models');
 const withAuth = require('../utils/auth');
 require('dotenv').config();
 
+
 router.get('/', withAuth, async (req, res) => {
     try {
         const petData = await Pet.findAll({

@@ -11,17 +11,17 @@ router.get('/', withAuth, async (req, res) => {
 // CREATE new user
 router.post('/', async (req, res) => {
     try {
-      const dbUserData = await User.create({
+      const userData = await User.create({
         firstName: req.body.firstName,
         lastName: req.body.lastName,
         email: req.body.email,
         password: req.body.password,
       });
-  
+      req.session.user_id = userData.id;
+      req.session.logged_in = true;
       req.session.save(() => {
-        req.session.loggedIn = true;
   
-        res.status(200).json(dbUserData);
+        res.status(200).json(userData);
       });
     } catch (err) {
       console.log(err);
@@ -33,23 +33,23 @@ router.post('/', async (req, res) => {
 router.post('/login', async (req, res) => {
     try {
         //lookup a user based on the email we send from the login page form
-        const dbUserData = await User.findOne({
+        const userData = await User.findOne({
             where: {
                 email: req.body.email
             }
         });
         //if that user exists, check their password (otherwise say "user not found")
-        if (dbUserData) {
+        if (userData) {
             //check password
-            const validPassword = await bcrypt.compare(req.body.password, dbUserData.password);
+            const validPassword = await bcrypt.compare(req.body.password, userData.password);
             if (validPassword) {
+                req.session.user_id = userData.id;
+                req.session.logged_in = true;
                 req.session.save(() => {
-                    req.session.user_id = dbUserData.id;
-                    req.session.logged_in = true;
 
                     res.json({
                         success: true,
-                        user: dbUserData,
+                        user: userData,
                         message: 'You are now logged in!'
                     });
                 });
@@ -65,7 +65,7 @@ router.post('/login', async (req, res) => {
                 message: 'User not found :('
             });
         }
-        console.log(dbUserData);
+        console.log(userData);
         
     } catch (e) {
         res.status(500).json(e);
