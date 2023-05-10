@@ -16,9 +16,9 @@ router.post('/', withAuth, async (req, res) => {
         res.status(400).json(err);
     }
 });
-
-// update a tag's name by its `id` value
+    
 router.put('/:id', withAuth, async (req, res) => {
+    // update a pet's name by its `id` value
     try {
         const petData = await Pet.update(
                 req.body, {
