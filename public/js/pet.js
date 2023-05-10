@@ -106,7 +106,8 @@ async function update_pet(event) {
 
 async function create_pet(event) {
     event.preventDefault();
-
+    $('#edit-section').hide();
+    
     // Get the object for fields to be updated
     const update_values = await get_form_values();
 
