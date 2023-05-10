@@ -23,7 +23,7 @@ h2 {
 
 #home {
     background-color: #B1AFFF;
-   
+    margin: 15px;
 }
 
 #my-pet {
@@ -41,3 +41,10 @@ h2 {
     margin-left: 30%;
 }
 
+#logout_btn {
+    margin: 15px;
+}
+
+#pet_btn {
+    margin: 10px;
+}

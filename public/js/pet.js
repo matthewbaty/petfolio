@@ -151,7 +151,7 @@ async function create_pet(event) {
                 }
             }).catch((error) => console.error('Error:', error));
 
-            window.location.href = '/';
+            window.location.href = `pet/${pet_id}`;
 
         }
     }
